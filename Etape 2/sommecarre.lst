@@ -1,0 +1,136 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 thumb
+    2 00000000         
+    3 00000000                 extern           TabSin
+    4 00000000                 extern           TabCos
+    5 00000000                 extern           TabSig
+    6 00000000                 import           re_im
+    7 00000000         
+    8 00000000                 area             moncode, code, readonly
+    9 00000000                 export           M2
+   10 00000000         ;
+   11 00000000         M2      proc
+   12 00000000 B530            push             {r4,r5,lr}  ;les arguments de l
+                                                            a fonction : adress
+                                                            e de tabsig en r0, 
+                                                            k en r1
+   13 00000002 4A07            ldr              r2, =TabCos
+   14 00000004 4604            mov              r4,r0       ;on sauve l'adresse
+                                                             du signal
+   15 00000006 F7FF FFFE       bl               re_im       ;on calcule la part
+                                                            ie réelle de la dft
+                                                             et on la met dans 
+                                                            r0
+   16 0000000A 4605            mov              r5,r0       ;on garde la valeur
+                                                             de la partie réell
+                                                            e
+   17 0000000C 4A05            ldr              r2, =TabSin
+   18 0000000E 4620            mov              r0,r4       ;on remet l'adresse
+                                                             du tableau dans r0
+                                                             pour l'appel de la
+                                                             fonction. PS: r1 n
+                                                            'est pas modifié pa
+                                                            r dft du coup on a 
+                                                            pas besoin de le re
+                                                            -load
+   19 00000010 F7FF FFFE       bl               re_im       ;calcul de la dft i
+                                                            maginaire
+   20 00000014 FB80 2300       SMULL            r2, r3, r0, r0 ;on met au carré
+                                                             les deux morceaux 
+                                                            de la dft
+   21 00000018 FBC5 2305       SMLAL            r2, r3, r5, r5
+   22 0000001C 4618            mov              r0, r3      ;on garde les 32 bi
+                                                            ts de poids forts d
+                                                            e la multiplication
+                                                             dans r0
+   23 0000001E BD30    fin     pop              {r4,r5,pc}  ;dernière instructi
+                                                            on de la fonction
+   24 00000020                 endp
+   25 00000020         ;
+   26 00000020                 end
+              00000000 
+              00000000 
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
+ork --depend=.\obj\sommecarre.d -o.\obj\sommecarre.o -I.\RTE\_Simu -IC:\Users\h
+ugol\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include -IC:\Users\hugo
+l\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include --predefine="
+__EVAL SETA 1" --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION S
+ETA 529" --predefine="_RTE_ SETA 1" --predefine="STM32F10X_MD SETA 1" --list=so
+mmecarre.lst sommecarre.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+M2 00000000
+
+Symbol: M2
+   Definitions
+      At line 11 in file sommecarre.s
+   Uses
+      At line 9 in file sommecarre.s
+Comment: M2 used once
+fin 0000001E
+
+Symbol: fin
+   Definitions
+      At line 23 in file sommecarre.s
+   Uses
+      None
+Comment: fin unused
+moncode 00000000
+
+Symbol: moncode
+   Definitions
+      At line 8 in file sommecarre.s
+   Uses
+      None
+Comment: moncode unused
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+External symbols
+
+TabCos 00000000
+
+Symbol: TabCos
+   Definitions
+      At line 4 in file sommecarre.s
+   Uses
+      At line 13 in file sommecarre.s
+Comment: TabCos used once
+TabSig 00000000
+
+Symbol: TabSig
+   Definitions
+      At line 5 in file sommecarre.s
+   Uses
+      None
+Comment: TabSig unused
+TabSin 00000000
+
+Symbol: TabSin
+   Definitions
+      At line 3 in file sommecarre.s
+   Uses
+      At line 17 in file sommecarre.s
+Comment: TabSin used once
+re_im 00000000
+
+Symbol: re_im
+   Definitions
+      At line 6 in file sommecarre.s
+   Uses
+      At line 15 in file sommecarre.s
+      At line 19 in file sommecarre.s
+
+4 symbols
+344 symbols in table

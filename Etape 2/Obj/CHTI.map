@@ -1,0 +1,85 @@
+Component: ARM Compiler 5.06 update 6 (build 750) Tool: armlink [4d35ed]
+
+==============================================================================
+
+Section Cross References
+
+    principal.o(i.main) refers to clock.o(.text) for CLOCK_Configure
+    principal.o(i.main) refers to gpio.o(.text) for GPIO_Configure
+    principal.o(i.main) refers to timer_1234.o(.text) for Timer_1234_Init_ff
+    principal.o(i.main) refers to projet.o(moncode) for timer_callback
+    projet.o(moncode) refers to projet.o(mesdata) for FLAG
+    startup-rvds.o(RESET) refers to startup-rvds.o(STACK) for __initial_sp
+    startup-rvds.o(RESET) refers to startup-rvds.o(.text) for Reset_Handler
+    startup-rvds.o(RESET) refers to timer_1234.o(.text) for TIM1_UP_IRQHandler
+    startup-rvds.o(.text) refers to entry.o(.ARM.Collect$$$$00000000) for __main
+    timer_1234.o(.text) refers to clock.o(.text) for CLOCK_GetTIMCLK
+    timer_1234.o(.text) refers to ffltui.o(.text) for __aeabi_ui2f
+    timer_1234.o(.text) refers to fmul.o(.text) for __aeabi_fmul
+    timer_1234.o(.text) refers to f2d.o(.text) for __aeabi_f2d
+    timer_1234.o(.text) refers to ddiv.o(.text) for __aeabi_ddiv
+    timer_1234.o(.text) refers to d2f.o(.text) for __aeabi_d2f
+    timer_1234.o(.text) refers to ffixui.o(.text) for __aeabi_f2uiz
+    timer_1234.o(.text) refers to fdiv.o(.text) for __aeabi_fdiv
+    timer_1234.o(.text) refers to dfltui.o(.text) for __aeabi_ui2d
+    timer_1234.o(.text) refers to dadd.o(.text) for __aeabi_dadd
+    timer_1234.o(.text) refers to dmul.o(.text) for __aeabi_dmul
+    timer_1234.o(.text) refers to timer_1234.o(.data) for Ptr_TIM1
+    timer_1234.o(.text) refers to cdcmple.o(.text) for __aeabi_cdcmple
+    timer_1234.o(.text) refers to cdrcmple.o(.text) for __aeabi_cdrcmple
+    timer_1234.o(.text) refers to fflti.o(.text) for __aeabi_i2f
+    timer_1234.o(.text) refers to ffixi.o(.text) for __aeabi_f2iz
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry10a.o(.ARM.Collect$$$$0000000D) for __rt_final_cpp
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry11a.o(.ARM.Collect$$$$0000000F) for __rt_final_exit
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry7b.o(.ARM.Collect$$$$00000008) for _main_clock
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry8b.o(.ARM.Collect$$$$0000000A) for _main_cpp_init
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry9a.o(.ARM.Collect$$$$0000000B) for _main_init
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry5.o(.ARM.Collect$$$$00000004) for _main_scatterload
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry2.o(.ARM.Collect$$$$00000001) for _main_stk
+    fmul.o(.text) refers (Special) to iusefp.o(.text) for __I$use$fp
+    fdiv.o(.text) refers (Special) to iusefp.o(.text) for __I$use$fp
+    fdiv.o(.text) refers to fepilogue.o(.text) for _float_round
+    dadd.o(.text) refers (Special) to iusefp.o(.text) for __I$use$fp
+    dadd.o(.text) refers to llshl.o(.text) for __aeabi_llsl
+    dadd.o(.text) refers to llsshr.o(.text) for __aeabi_lasr
+    dadd.o(.text) refers to depilogue.o(.text) for _double_epilogue
+    dmul.o(.text) refers (Special) to iusefp.o(.text) for __I$use$fp
+    dmul.o(.text) refers to depilogue.o(.text) for _double_epilogue
+    ddiv.o(.text) refers (Special) to iusefp.o(.text) for __I$use$fp
+    ddiv.o(.text) refers to depilogue.o(.text) for _double_round
+    fflti.o(.text) refers (Special) to iusefp.o(.text) for __I$use$fp
+    fflti.o(.text) refers to fepilogue.o(.text) for _float_epilogue
+    ffltui.o(.text) refers (Special) to iusefp.o(.text) for __I$use$fp
+    ffltui.o(.text) refers to fepilogue.o(.text) for _float_epilogue
+    dfltui.o(.text) refers (Special) to iusefp.o(.text) for __I$use$fp
+    dfltui.o(.text) refers to depilogue.o(.text) for _double_epilogue
+    ffixi.o(.text) refers (Special) to iusefp.o(.text) for __I$use$fp
+    ffixui.o(.text) refers (Special) to iusefp.o(.text) for __I$use$fp
+    f2d.o(.text) refers (Special) to iusefp.o(.text) for __I$use$fp
+    cdcmple.o(.text) refers (Special) to iusefp.o(.text) for __I$use$fp
+    cdrcmple.o(.text) refers (Special) to iusefp.o(.text) for __I$use$fp
+    d2f.o(.text) refers (Special) to iusefp.o(.text) for __I$use$fp
+    d2f.o(.text) refers to fepilogue.o(.text) for _float_round
+    entry2.o(.ARM.Collect$$$$00000001) refers to entry2.o(.ARM.Collect$$$$00002712) for __lit__00000000
+    entry2.o(.ARM.Collect$$$$00002712) refers to startup-rvds.o(STACK) for __initial_sp
+    entry2.o(__vectab_stack_and_reset_area) refers to startup-rvds.o(STACK) for __initial_sp
+    entry2.o(__vectab_stack_and_reset_area) refers to entry.o(.ARM.Collect$$$$00000000) for __main
+    entry5.o(.ARM.Collect$$$$00000004) refers to init.o(.text) for __scatterload
+    entry9a.o(.ARM.Collect$$$$0000000B) refers to principal.o(i.main) for main
+    entry9b.o(.ARM.Collect$$$$0000000C) refers to principal.o(i.main) for main
+    depilogue.o(.text) refers to llshl.o(.text) for __aeabi_llsl
+    depilogue.o(.text) refers to llushr.o(.text) for __aeabi_llsr
+    init.o(.text) refers to entry5.o(.ARM.Collect$$$$00000004) for __main_after_scatterload
+
+
+==============================================================================
+
+Removing Unused input sections from the image.
+
+    Removing principal.o(.rev16_text), (4 bytes).
+    Removing principal.o(.revsh_text), (4 bytes).
+    Removing principal.o(.rrx_text), (6 bytes).
+    Removing sommecarre.o(moncode), (40 bytes).
+    Removing startup-rvds.o(HEAP), (512 bytes).
+
+5 unused section(s) (total 566 bytes) removed from the image.
