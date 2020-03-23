@@ -17,7 +17,7 @@ timer_callback	proc
 	
 si_alors ; mise à 1
 	ldr	r3, =GPIOB_BSRR
-	mov	r1, #0x00000002;mise à 1
+	mov	r1, #0x00000002 ; mise à 1
 	str	r1, [r3]
 	mov	r2, #0x1
 	str	r2,	[r0]

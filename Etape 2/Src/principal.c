@@ -8,10 +8,5 @@ int tabdft[64];
 
 int main(void)
 {
-
-for(i=1;i<64;i++){
-	
-tabdft[i] = M2(&TabSig, i);
-}
 	while(1) {}
 }
