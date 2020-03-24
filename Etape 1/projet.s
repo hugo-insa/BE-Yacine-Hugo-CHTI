@@ -3,13 +3,13 @@
 		
 	export 	FLAG  
 	area mesdata, data , readwrite
-FLAG DCD 0; 
+FLAG DCD 0; initialisation du flag 
+	
 	area  moncode, code, readonly
 	export timer_callback
 GPIOB_BSRR	equ 0x40010C10
 	
 timer_callback	proc
-
 	ldr r0,=FLAG ; adresse du flag
 	ldr		r2,[r0] ; valeur du flag
 	cbz		r2,si_alors

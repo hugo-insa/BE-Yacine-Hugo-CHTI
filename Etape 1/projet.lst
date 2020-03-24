@@ -10,16 +10,17 @@ ARM Macro Assembler    Page 1
     4 00000000                 export           FLAG
     5 00000000                 area             mesdata, data , readwrite
     6 00000000 00000000 
-                       FLAG    DCD              0           ; 
-    7 00000004                 area             moncode, code, readonly
-    8 00000000                 export           timer_callback
-    9 00000000 40010C10 
+                       FLAG    DCD              0           ; initialisation du
+                                                             flag 
+    7 00000004         
+    8 00000004                 area             moncode, code, readonly
+    9 00000000                 export           timer_callback
+   10 00000000 40010C10 
                        GPIOB_BSRR
                                equ              0x40010C10
-   10 00000000         
-   11 00000000         timer_callback
+   11 00000000         
+   12 00000000         timer_callback
                                proc
-   12 00000000         
    13 00000000 4809            ldr              r0,=FLAG    ; adresse du flag
    14 00000002 6802            ldr              r2,[r0]     ; valeur du flag
    15 00000004 B102            cbz              r2,si_alors
@@ -27,7 +28,7 @@ ARM Macro Assembler    Page 1
    17 00000008         
    18 00000008         si_alors                             ; mise à 1
    19 00000008 4B08            ldr              r3, =GPIOB_BSRR
-   20 0000000A F04F 0102       mov              r1, #0x00000002 ;mise à 1
+   20 0000000A F04F 0102       mov              r1, #0x00000002 ; mise à 1
    21 0000000E 6019            str              r1, [r3]
    22 00000010 F04F 0201       mov              r2, #0x1
    23 00000014 6002            str              r2, [r0]
@@ -93,7 +94,7 @@ moncode 00000000
 
 Symbol: moncode
    Definitions
-      At line 7 in file projet.s
+      At line 8 in file projet.s
    Uses
       None
 Comment: moncode unused
@@ -117,9 +118,9 @@ timer_callback 00000000
 
 Symbol: timer_callback
    Definitions
-      At line 11 in file projet.s
+      At line 12 in file projet.s
    Uses
-      At line 8 in file projet.s
+      At line 9 in file projet.s
 Comment: timer_callback used once
 5 symbols
 
@@ -132,7 +133,7 @@ GPIOB_BSRR 40010C10
 
 Symbol: GPIOB_BSRR
    Definitions
-      At line 9 in file projet.s
+      At line 10 in file projet.s
    Uses
       At line 19 in file projet.s
       At line 26 in file projet.s

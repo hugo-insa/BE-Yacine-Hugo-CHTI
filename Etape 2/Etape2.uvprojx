@@ -388,14 +388,19 @@
               <FilePath>.\Src\principal.c</FilePath>
             </File>
             <File>
-              <FileName>projet.s</FileName>
+              <FileName>calcul_dft.s</FileName>
               <FileType>2</FileType>
-              <FilePath>.\projet.s</FilePath>
+              <FilePath>.\calcul_dft.s</FilePath>
+            </File>
+            <File>
+              <FileName>signal_synthetique.asm</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\Src\signal_synthetique.asm</FilePath>
             </File>
             <File>
               <FileName>trigo.asm</FileName>
-              <FileType>7</FileType>
-              <FilePath>.\trigo.asm</FilePath>
+              <FileType>2</FileType>
+              <FilePath>.\Src\trigo.asm</FilePath>
             </File>
           </Files>
         </Group>
