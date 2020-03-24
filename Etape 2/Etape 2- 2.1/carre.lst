@@ -1,0 +1,105 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 thumb
+    2 00000000                 area             moncode, code, readonly
+    3 00000000         
+    4 00000000                 import           TabSin
+    5 00000000                 import           TabCos
+    6 00000000         
+    7 00000000                 export           s_carre
+    8 00000000         
+    9 00000000         s_carre proc
+   10 00000000         
+   11 00000000 4906            ldr              r1, =TabSin ; copie dans r1 , T
+                                                            abSin stockée en RO
+                                                            M
+   12 00000002 4A07            ldr              r2, =TabCos ; copie dans r2 , T
+                                                            abSin stockée en RO
+                                                            M
+   13 00000004         
+   14 00000004 F931 3010       ldrsh            r3, [r1,r0, lsl #0x01] ; r4 con
+                                                            tient la valeur de 
+                                                            sin 
+   15 00000008 F932 C010       ldrsh            r12, [r2,r0, lsl #0x01] ; r5 co
+                                                            ntient la valeur de
+                                                             cos 
+   16 0000000C         
+   17 0000000C FB03 F303       mul              r3, r3
+   18 00000010 FB0C FC0C       mul              r12, r12
+   19 00000014         
+   20 00000014 4463            add              r3,r12
+   21 00000016         
+   22 00000016 4618            mov              r0,r3
+   23 00000018         
+   24 00000018 E7FF            b                fin
+   25 0000001A         fin
+   26 0000001A 4770            bx               lr
+   27 0000001C                 endp
+   28 0000001C                 end
+              00000000 
+              00000000 
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
+ork --depend=.\obj\carre.d -o.\obj\carre.o -I.\RTE\_Simu -ID:\ARM\CMSIS\5.6.0\C
+MSIS\Core\Include -ID:\Keil\STM32F1xx_DFP\2.3.0\Device\Include --predefine="__E
+VAL SETA 1" --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA
+ 529" --predefine="_RTE_ SETA 1" --predefine="STM32F10X_MD SETA 1" --list=carre
+.lst carre.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+fin 0000001A
+
+Symbol: fin
+   Definitions
+      At line 25 in file carre.s
+   Uses
+      At line 24 in file carre.s
+Comment: fin used once
+moncode 00000000
+
+Symbol: moncode
+   Definitions
+      At line 2 in file carre.s
+   Uses
+      None
+Comment: moncode unused
+s_carre 00000000
+
+Symbol: s_carre
+   Definitions
+      At line 9 in file carre.s
+   Uses
+      At line 7 in file carre.s
+Comment: s_carre used once
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+External symbols
+
+TabCos 00000000
+
+Symbol: TabCos
+   Definitions
+      At line 5 in file carre.s
+   Uses
+      At line 12 in file carre.s
+Comment: TabCos used once
+TabSin 00000000
+
+Symbol: TabSin
+   Definitions
+      At line 4 in file carre.s
+   Uses
+      At line 11 in file carre.s
+Comment: TabSin used once
+2 symbols
+342 symbols in table
