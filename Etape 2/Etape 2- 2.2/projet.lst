@@ -1,0 +1,142 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ; ce programme est pour l'assembleur RealView (Keil)
+    2 00000000                 thumb
+    3 00000000         
+    4 00000000                 export           FLAG
+    5 00000000                 area             mesdata, data , readwrite
+    6 00000000 00000000 
+                       FLAG    DCD              0           ; 
+    7 00000004                 area             moncode, code, readonly
+    8 00000000                 export           timer_callback
+    9 00000000 40010C10 
+                       GPIOB_BSRR
+                               equ              0x40010C10
+   10 00000000         
+   11 00000000         timer_callback
+                               proc
+   12 00000000         
+   13 00000000 4809            ldr              r0,=FLAG    ; adresse du flag
+   14 00000002 6802            ldr              r2,[r0]     ; valeur du flag
+   15 00000004 B102            cbz              r2,si_alors
+   16 00000006 E007            b                sinon
+   17 00000008         
+   18 00000008         si_alors                             ; mise à 1
+   19 00000008 4B08            ldr              r3, =GPIOB_BSRR
+   20 0000000A F04F 0102       mov              r1, #0x00000002 ;mise à 1
+   21 0000000E 6019            str              r1, [r3]
+   22 00000010 F04F 0201       mov              r2, #0x1
+   23 00000014 6002            str              r2, [r0]
+   24 00000016 E006            b                fin
+   25 00000018         sinon                                ; mise à 0
+   26 00000018 4B04            ldr              r3, =GPIOB_BSRR
+   27 0000001A F44F 3100       mov              r1, #0x00020000
+   28 0000001E 6019            str              r1, [r3]
+   29 00000020 F04F 0200       mov              r2, #0x0
+   30 00000024 6002            str              r2, [r0]
+   31 00000026         
+   32 00000026         fin
+   33 00000026 4770            bx               lr
+   34 00000028                 endp
+   35 00000028                 end
+              00000000 
+              40010C10 
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
+ork --depend=.\obj\projet.d -o.\obj\projet.o -I.\RTE\_Simu -IC:\Users\hugol\App
+Data\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include -IC:\Users\hugol\AppDat
+a\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include --predefine="__EVAL S
+ETA 1" --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 529"
+ --predefine="_RTE_ SETA 1" --predefine="STM32F10X_MD SETA 1" --list=projet.lst
+ projet.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+FLAG 00000000
+
+Symbol: FLAG
+   Definitions
+      At line 6 in file projet.s
+   Uses
+      At line 4 in file projet.s
+      At line 13 in file projet.s
+
+mesdata 00000000
+
+Symbol: mesdata
+   Definitions
+      At line 5 in file projet.s
+   Uses
+      None
+Comment: mesdata unused
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+fin 00000026
+
+Symbol: fin
+   Definitions
+      At line 32 in file projet.s
+   Uses
+      At line 24 in file projet.s
+Comment: fin used once
+moncode 00000000
+
+Symbol: moncode
+   Definitions
+      At line 7 in file projet.s
+   Uses
+      None
+Comment: moncode unused
+si_alors 00000008
+
+Symbol: si_alors
+   Definitions
+      At line 18 in file projet.s
+   Uses
+      At line 15 in file projet.s
+Comment: si_alors used once
+sinon 00000018
+
+Symbol: sinon
+   Definitions
+      At line 25 in file projet.s
+   Uses
+      At line 16 in file projet.s
+Comment: sinon used once
+timer_callback 00000000
+
+Symbol: timer_callback
+   Definitions
+      At line 11 in file projet.s
+   Uses
+      At line 8 in file projet.s
+Comment: timer_callback used once
+5 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+GPIOB_BSRR 40010C10
+
+Symbol: GPIOB_BSRR
+   Definitions
+      At line 9 in file projet.s
+   Uses
+      At line 19 in file projet.s
+      At line 26 in file projet.s
+
+1 symbol
+345 symbols in table
