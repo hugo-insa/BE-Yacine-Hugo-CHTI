@@ -10,29 +10,30 @@
 	export somme_carre 
 		
 somme_carre proc
-	push	{r4,r5,r6,lr}				;les arguments de la fonction : adresse de tabsig en r0, k en r1
+	push	{r4,r5,lr}				;les arguments de la fonction : adresse de tabsig en r0, k en r1
 	
 ; ************ Calcul de la partie réelle ********************* 
 	ldr r2, =TabCos  				; on récupère l'adresse de Tabcos 
 	mov r4, r0 
 	bl calcul_preliminaire 
 	mov r5, r0 						; on a la partie réelle 
-	mul r5, r5, r5                    ; on stocke la partie réelle au carré 
+	;SMULL r5, r5, r5                    ; on stocke la partie réelle au carré 
 	
 ; ************ Calcul de la partie imaginaire********************* 	
 	ldr r2, =TabSin 
-	mov r4, r0 
+	mov r0, r4 
 	bl calcul_preliminaire 
-	mov r6, r0         				; on a la partie imaginaire 
-	mul r6, r6,r6					; on stocke la partie imaginaire au carré 
-	
+	;mov r6, r0         				; on a la partie imaginaire 
+	SMULL r2, r3, r0, r0					; on stocke la partie imaginaire au carré 
+	SMLAL r2, r3, r5, r5
+	mov r0, r3
 	
 ; ***************** Addition**************************************
 
-	add r5,r6                   ;  Re(k)² + Im(k)² 
-	mov r0,r5						   ; on garde les 32 bits de poids forts de la multiplication dans r0
+	;add r5,r6                   ;  Re(k)² + Im(k)² 
+	;mov r0,r5						   ; on garde les 32 bits de poids forts de la multiplication dans r0
 	
-fin	pop {r4,r5,r6,pc}				;dernière instruction de la fonction
+fin	pop {r4,r5,pc}				;dernière instruction de la fonction
 	endp
 ;
 	end

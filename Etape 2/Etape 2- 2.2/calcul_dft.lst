@@ -54,7 +54,7 @@ ARM Macro Assembler    Page 1
                                                             N))): 
    28 0000002C         
    29 0000002C F108 0801       add              r8 , #1     ; i= 1
-   30 00000030 F1B8 0F40       cmp              r8, #64     ; jusqu'à i = 64 
+   30 00000030 F1B8 0F04       cmp              r8, #4      ; jusqu'à i = 64 
    31 00000034 D3F0            blo              loop
    32 00000036         
    33 00000036 4650            mov              r0, r10
@@ -75,11 +75,12 @@ ARM Macro Assembler    Page 2
    42 0000004A         ; 
    43 0000004A                 end
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
-ork --depend=.\obj\calcul_dft.d -o.\obj\calcul_dft.o -I.\RTE\_Simu -ID:\ARM\CMS
-IS\5.6.0\CMSIS\Core\Include -ID:\Keil\STM32F1xx_DFP\2.3.0\Device\Include --pred
-efine="__EVAL SETA 1" --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VE
-RSION SETA 529" --predefine="_RTE_ SETA 1" --predefine="STM32F10X_MD SETA 1" --
-list=calcul_dft.lst calcul_dft.s
+ork --depend=.\obj\calcul_dft.d -o.\obj\calcul_dft.o -I.\RTE\_Simu -IC:\Users\h
+ugol\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include -IC:\Users\hugo
+l\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include --predefine="
+__EVAL SETA 1" --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION S
+ETA 529" --predefine="_RTE_ SETA 1" --predefine="STM32F10X_MD SETA 1" --list=ca
+lcul_dft.lst calcul_dft.s
 
 
 
