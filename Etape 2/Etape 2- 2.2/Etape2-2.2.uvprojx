@@ -407,6 +407,11 @@
               <FileType>2</FileType>
               <FilePath>.\M2.s</FilePath>
             </File>
+            <File>
+              <FileName>f17p30_f18p135.asm</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\Src\f17p30_f18p135.asm</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

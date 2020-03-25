@@ -54,7 +54,7 @@ ARM Macro Assembler    Page 1
                                                             N))): 
    28 0000002C         
    29 0000002C F108 0801       add              r8 , #1     ; i= 1
-   30 00000030 F1B8 0F04       cmp              r8, #4      ; jusqu'à i = 64 
+   30 00000030 F1B8 0F40       cmp              r8, #64     ; jusqu'à i = 64 
    31 00000034 D3F0            blo              loop
    32 00000036         
    33 00000036 4650            mov              r0, r10

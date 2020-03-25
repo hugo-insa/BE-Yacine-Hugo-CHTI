@@ -4,6 +4,7 @@
 ".\obj\signal_synthetique.o"
 ".\obj\trigo.o"
 ".\obj\m2.o"
+".\obj\f17p30_f18p135.o"
 ".\obj\startup-rvds.o"
 ".\GASSP72\gassp72.lib"
 --library_type=microlib --strict --scatter ".\Obj\CHTI.sct"

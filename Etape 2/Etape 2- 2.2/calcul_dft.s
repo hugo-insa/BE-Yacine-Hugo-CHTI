@@ -27,7 +27,7 @@ loop 	ldrsh r7, [r0,r8, LSL#1] 		; on sauvegarde x(i)
 	mla r10, r7, r12, r10				; somme((x(i)*(tabcos(i*k mod N) ou tabsin(i*k mod N))): 
 	
 	add r8 , #1 						; i= 1
-	cmp r8, #4 						; jusqu'à i = 64 
+	cmp r8, #64 						; jusqu'à i = 64 
 	blo loop 
 	
 	mov r0, r10
