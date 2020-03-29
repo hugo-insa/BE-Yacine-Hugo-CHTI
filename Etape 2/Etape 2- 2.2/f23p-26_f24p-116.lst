@@ -1,0 +1,204 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             Signal, DATA, READONLY
+    2 00000000                 export           TabSig4
+    3 00000000         
+    4 00000000         ; Fnor1 = 23.000
+    5 00000000         ;   Ph1 = -26.565
+    6 00000000         ;    A1 = 62.000  env. 50mV/3300mV
+    7 00000000         ; Fnor2 = 24.000
+    8 00000000         ;   Ph2 = -116.565
+    9 00000000         ;    A2 = 1024.000
+   10 00000000         
+   11 00000000         ; valeurs attendues pour k = 23 :
+   12 00000000         ; Re 0x0378FDBD
+   13 00000000         ; Im 0x01BAD0C5 env 0.5 * Re, car tan(26.565) ~= 0.5
+   14 00000000         ; M2 0x000F0D16 986390
+   15 00000000         ;
+   16 00000000         ; valeurs attendues pour k = 24 :
+   17 00000000         ; Re 0xE36136DD env -0.447 * 2^30
+   18 00000000         ; Im 0x393E61CA env -2 * Re, car tan(116.565) ~= 2.0
+   19 00000000         ; M2 0x0FFFF53C env 2^28
+   20 00000000         ;
+   21 00000000         ; pour les autres valeurs de k sauf les alias de 23 et 2
+                       4 :
+   22 00000000         ; M2    < 0x0000000F
+   23 00000000         
+   24 00000000         TabSig4
+   25 00000000 6E 06           DCW              1646        ;  0 0x066e  0.4018
+                                                            6
+   26 00000002 BE 0B           DCW              3006        ;  1 0x0bbe  0.7338
+                                                            9
+   27 00000004 46 04           DCW              1094        ;  2 0x0446  0.2670
+                                                            9
+   28 00000006 82 09           DCW              2434        ;  3 0x0982  0.5942
+                                                            4
+   29 00000008 A1 09           DCW              2465        ;  4 0x09a1  0.6018
+                                                            1
+   30 0000000A 2A 04           DCW              1066        ;  5 0x042a  0.2602
+                                                            5
+   31 0000000C CA 0B           DCW              3018        ;  6 0x0bca  0.7368
+                                                            2
+   32 0000000E 82 06           DCW              1666        ;  7 0x0682  0.4067
+                                                            4
+   33 00000010 4A 06           DCW              1610        ;  8 0x064a  0.3930
+                                                            7
+   34 00000012 EC 0B           DCW              3052        ;  9 0x0bec  0.7451
+                                                            2
+   35 00000014 2F 04           DCW              1071        ; 10 0x042f  0.2614
+                                                            7
+   36 00000016 71 09           DCW              2417        ; 11 0x0971  0.5900
+                                                            9
+   37 00000018 CE 09           DCW              2510        ; 12 0x09ce  0.6127
+                                                            9
+   38 0000001A 02 04           DCW              1026        ; 13 0x0402  0.2504
+                                                            9
+   39 0000001C D0 0B           DCW              3024        ; 14 0x0bd0  0.7382
+                                                            8
+   40 0000001E A3 06           DCW              1699        ; 15 0x06a3  0.4147
+                                                            9
+   41 00000020 1A 06           DCW              1562        ; 16 0x061a  0.3813
+                                                            5
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   42 00000022 08 0C           DCW              3080        ; 17 0x0c08  0.7519
+                                                            5
+   43 00000024 3B 04           DCW              1083        ; 18 0x043b  0.2644
+                                                            0
+   44 00000026 46 09           DCW              2374        ; 19 0x0946  0.5795
+                                                            9
+   45 00000028 F9 09           DCW              2553        ; 20 0x09f9  0.6232
+                                                            9
+   46 0000002A F7 03           DCW              1015        ; 21 0x03f7  0.2478
+                                                            0
+   47 0000002C B3 0B           DCW              2995        ; 22 0x0bb3  0.7312
+                                                            0
+   48 0000002E D2 06           DCW              1746        ; 23 0x06d2  0.4262
+                                                            7
+   49 00000030 FB 05           DCW              1531        ; 24 0x05fb  0.3737
+                                                            8
+   50 00000032 00 0C           DCW              3072        ; 25 0x0c00  0.7500
+                                                            0
+   51 00000034 64 04           DCW              1124        ; 26 0x0464  0.2744
+                                                            1
+   52 00000036 19 09           DCW              2329        ; 27 0x0919  0.5686
+                                                            0
+   53 00000038 08 0A           DCW              2568        ; 28 0x0a08  0.6269
+                                                            5
+   54 0000003A 11 04           DCW              1041        ; 29 0x0411  0.2541
+                                                            5
+   55 0000003C 84 0B           DCW              2948        ; 30 0x0b84  0.7197
+                                                            3
+   56 0000003E F5 06           DCW              1781        ; 31 0x06f5  0.4348
+                                                            1
+   57 00000040 FF 05           DCW              1535        ; 32 0x05ff  0.3747
+                                                            6
+   58 00000042 D9 0B           DCW              3033        ; 33 0x0bd9  0.7404
+                                                            8
+   59 00000044 92 04           DCW              1170        ; 34 0x0492  0.2856
+                                                            4
+   60 00000046 06 09           DCW              2310        ; 35 0x0906  0.5639
+                                                            6
+   61 00000048 F3 09           DCW              2547        ; 36 0x09f3  0.6218
+                                                            3
+   62 0000004A 3F 04           DCW              1087        ; 37 0x043f  0.2653
+                                                            8
+   63 0000004C 5E 0B           DCW              2910        ; 38 0x0b5e  0.7104
+                                                            5
+   64 0000004E F6 06           DCW              1782        ; 39 0x06f6  0.4350
+                                                            6
+   65 00000050 22 06           DCW              1570        ; 40 0x0622  0.3833
+                                                            0
+   66 00000052 AA 0B           DCW              2986        ; 41 0x0baa  0.7290
+                                                            0
+   67 00000054 AA 04           DCW              1194        ; 42 0x04aa  0.2915
+                                                            0
+   68 00000056 17 09           DCW              2327        ; 43 0x0917  0.5681
+                                                            2
+   69 00000058 C6 09           DCW              2502        ; 44 0x09c6  0.6108
+                                                            4
+   70 0000005A 67 04           DCW              1127        ; 45 0x0467  0.2751
+                                                            5
+   71 0000005C 58 0B           DCW              2904        ; 46 0x0b58  0.7089
+
+
+
+ARM Macro Assembler    Page 3 
+
+
+                                                            8
+   72 0000005E D5 06           DCW              1749        ; 47 0x06d5  0.4270
+                                                            0
+   73 00000060 52 06           DCW              1618        ; 48 0x0652  0.3950
+                                                            2
+   74 00000062 8F 0B           DCW              2959        ; 49 0x0b8f  0.7224
+                                                            1
+   75 00000064 9D 04           DCW              1181        ; 50 0x049d  0.2883
+                                                            3
+   76 00000066 42 09           DCW              2370        ; 51 0x0942  0.5786
+                                                            1
+   77 00000068 9B 09           DCW              2459        ; 52 0x099b  0.6003
+                                                            4
+   78 0000006A 72 04           DCW              1138        ; 53 0x0472  0.2778
+                                                            3
+   79 0000006C 75 0B           DCW              2933        ; 54 0x0b75  0.7160
+                                                            6
+   80 0000006E A6 06           DCW              1702        ; 55 0x06a6  0.4155
+                                                            3
+   81 00000070 71 06           DCW              1649        ; 56 0x0671  0.4025
+                                                            9
+   82 00000072 97 0B           DCW              2967        ; 57 0x0b97  0.7243
+                                                            7
+   83 00000074 74 04           DCW              1140        ; 58 0x0474  0.2783
+                                                            2
+   84 00000076 6E 09           DCW              2414        ; 59 0x096e  0.5893
+                                                            6
+   85 00000078 8C 09           DCW              2444        ; 60 0x098c  0.5966
+                                                            8
+   86 0000007A 58 04           DCW              1112        ; 61 0x0458  0.2714
+                                                            8
+   87 0000007C A4 0B           DCW              2980        ; 62 0x0ba4  0.7275
+                                                            4
+   88 0000007E 84 06           DCW              1668        ; 63 0x0684  0.4072
+                                                            3
+   89 00000080         
+   90 00000080                 END
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
+ork --depend=.\obj\f23p-26_f24p-116.d -o.\obj\f23p-26_f24p-116.o -I.\RTE\_Simu 
+-IC:\Users\yacin\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include -IC
+:\Users\yacin\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include -
+-predefine="__EVAL SETA 1" --predefine="__MICROLIB SETA 1" --predefine="__UVISI
+ON_VERSION SETA 529" --predefine="_RTE_ SETA 1" --predefine="STM32F10X_MD SETA 
+1" --list=f23p-26_f24p-116.lst Tests\f23p-26_f24p-116.asm
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Signal 00000000
+
+Symbol: Signal
+   Definitions
+      At line 1 in file Tests\f23p-26_f24p-116.asm
+   Uses
+      None
+Comment: Signal unused
+TabSig4 00000000
+
+Symbol: TabSig4
+   Definitions
+      At line 24 in file Tests\f23p-26_f24p-116.asm
+   Uses
+      At line 2 in file Tests\f23p-26_f24p-116.asm
+Comment: TabSig4 used once
+2 symbols
+337 symbols in table

@@ -1,5 +1,5 @@
 	AREA Signal, DATA, READONLY
-	export TabSig
+	export TabSig4
 
 ; Fnor1 = 23.000
 ;   Ph1 = -26.565
@@ -21,7 +21,7 @@
 ; pour les autres valeurs de k sauf les alias de 23 et 24 :
 ;	M2    < 0x0000000F
 
-TabSig
+TabSig4
 	DCW	1646	;  0 0x066e  0.40186
 	DCW	3006	;  1 0x0bbe  0.73389
 	DCW	1094	;  2 0x0446  0.26709

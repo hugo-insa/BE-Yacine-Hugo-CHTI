@@ -1,5 +1,5 @@
 	AREA Signal, DATA, READONLY
-	export TabSig
+	export TabSig3
 ; fonction cosinus, frequence relative 1, phase -45 degres, amplitude max
 ; valeurs attendues pour k = 1 :
 ;	Re	0x5A82562C	env +sqrt(0.5) * 2^31
@@ -8,7 +8,7 @@
 ; pour 1 < k < 63
 ;	M2    < 0x0000000F
 
-TabSig
+TabSig3
 	dcw	0x0da8	;  0   3496  0.85352
 	dcw	0x0e2f	;  1   3631  0.88647
 	dcw	0x0ea7	;  2   3751  0.91577

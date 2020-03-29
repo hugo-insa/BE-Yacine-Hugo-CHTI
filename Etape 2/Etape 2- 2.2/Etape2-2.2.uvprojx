@@ -403,14 +403,19 @@
               <FilePath>.\Src\trigo.asm</FilePath>
             </File>
             <File>
-              <FileName>M2.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\M2.s</FilePath>
-            </File>
-            <File>
               <FileName>f17p30_f18p135.asm</FileName>
               <FileType>2</FileType>
               <FilePath>.\Src\f17p30_f18p135.asm</FilePath>
+            </File>
+            <File>
+              <FileName>f1p-45.asm</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\Tests\f1p-45.asm</FilePath>
+            </File>
+            <File>
+              <FileName>f23p-26_f24p-116.asm</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\Tests\f23p-26_f24p-116.asm</FilePath>
             </File>
           </Files>
         </Group>
