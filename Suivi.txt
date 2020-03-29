@@ -3,3 +3,12 @@ L'étape 1 est finie
 L'étape 2.1 est finie.
 
 L'étape 2.2 est en cours, on a plusieurs problème notamment dans notre code en C, on arrive pas a afficher le tableau (erreur : <Not in scope>) et à priori on a pas les valeurs qu'on devrait obtenir, malgré ça notre code compile et run sans erreur. 
+
+L'étape 2.2 est finie et marche. 
+En effet, on a crée 3 tableaux qui représentent respectivement la partie Réelle, la partie Imaginaire et donc le résultat du module 
+
+ Dans notre code, les jeux de tests sont rangés de la manière suivante : 
+
+- f17p30_f18p135.asm ==> TabSig2
+- f1p-45.asm ==> TabSig3
+- f23p-26_f24p-116.asm ==> TabSig4
