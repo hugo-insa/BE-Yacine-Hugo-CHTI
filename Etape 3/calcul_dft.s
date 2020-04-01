@@ -5,8 +5,8 @@
 	extern TabSig2
 
 	area  moncode, code, readonly 
-	export calcul_Reel 
-	export calcul_Imaginaire 
+	;export calcul_Reel 
+	;export calcul_Imaginaire 
 	export M2 
 		
 M2 proc 
@@ -16,13 +16,13 @@ M2 proc
 	; r3 contient la partie Réel 
 
 	push {LR, r0, r1,r7-r10} 
-	bl 	calcul_Reel
+	ldr r2, =TabCos
+	bl 	dft_reel_imaginaire
 	mov r3, r0 ; Re dans r1
 	pop {r0,r1}
-	push {r3}
-	bl 	calcul_Imaginaire
+	ldr r2, =TabSin
+	bl 	dft_reel_imaginaire
 	mov r2, r0 ; Im dans r2
-	pop{r3}
 
 	
 	smull r7, r8,r3,r3 ; Re²
@@ -53,17 +53,10 @@ masque equ 0x3F ; pour faire un modulo 64
 ; 		r7 contient x(i)*cos(i*k) ou x(i) * sin(i*k)
 ; 		r12 contient i
 
-calcul_Imaginaire proc
-	push {r4-r7}
-	mov r12, #0x00
-	ldr r2, =TabSin ; 									on met l'@ de TabSin
-	b	loop
-	endp
 
-calcul_Reel proc
-	push {r4-r7}
-	mov r12, #0x00
-	ldr r2, =TabCos ; 									on met l'@ de TabCos
+dft_reel_imaginaire proc
+	push {r3-r7}
+	mov r12, #0x00 									
 	b	loop
 
 loop
@@ -93,7 +86,7 @@ loop
 
 
 fin
-	pop {r4-r7}
+	pop {r3-r7}
 	bx lr
 	endp 
 	end
