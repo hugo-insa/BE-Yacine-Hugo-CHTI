@@ -1,0 +1,14 @@
+--cpu Cortex-M3
+".\obj\principal.o"
+".\obj\calcul_dft.o"
+".\obj\signal_synthetique.o"
+".\obj\trigo.o"
+".\obj\f17p30_f18p135.o"
+".\obj\f1p-45.o"
+".\obj\f23p-26_f24p-116.o"
+".\obj\startup-rvds.o"
+".\GASSP72\gassp72.lib"
+--library_type=microlib --strict --scatter ".\Obj\CHTI.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "CHTI.map" -o .\Obj\CHTI.axf
