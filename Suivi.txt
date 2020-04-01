@@ -5,6 +5,8 @@ L'étape 2.1 est finie.
 L'étape 2.2 est finie et marche. 
 En effet, on a crée 3 tableaux qui représentent respectivement la partie Réelle, la partie Imaginaire et donc le résultat du module 
 
+L'étape 2.2 bis est finie et marche, elle correspond à une version plus propre du code de l'étape 2.2 qui ne retourne que le module. 
+
  Dans notre code, les jeux de tests sont rangés de la manière suivante : 
 
 - f17p30_f18p135.asm ==> TabSig2
