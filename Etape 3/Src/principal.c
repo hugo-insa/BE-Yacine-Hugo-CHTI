@@ -4,8 +4,8 @@ int M2(int, unsigned short *);
 unsigned short dma_buf[64]; 
 int compteur[6]={0,0,0,0,0,0};
 int SYSTICK_PER = 5*72000; //5ms en ticks d'horloge à 72MHz
-int M2TIR = 9 ; 
-int led = 0 ; 
+int M2TIR = 985661 ; 
+//int led = 0 ; 
 extern	unsigned short TabSig[64];
 int k ; 
 
@@ -44,7 +44,7 @@ void sys_callback() {
 					compteur[5]++;
 					break;
 			}
-			led = 1; 
+			//led = 1; 
 		}
 		else {
 			compteur[k] = 0 ; // remise à zero 
@@ -84,10 +84,17 @@ int main(void)
 	SysTick_Enable_IT;
 		
 	while (1) {
-		
-		if(led) {
-			GPIO_Set(GPIOB, 14); // Activation de la LED (câblée sur PB14)
-			led = 0 ; 
+		for (int j = 0; j < 6; j++){
+			if (compteur[j]>=3){
+				GPIO_Set(GPIOB, 14);
+			}
+			else if(compteur[j] == 0){
+				GPIO_Clear(GPIOB, 14);
+		//if(led) {
+			//GPIO_Set(GPIOB, 14); // Activation de la LED (câblée sur PB14)
+			//led = 0 ; 
+		//}
+			}
 		}
 	}
 }

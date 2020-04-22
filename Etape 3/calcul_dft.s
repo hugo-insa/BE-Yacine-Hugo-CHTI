@@ -2,7 +2,7 @@
 		
 	extern TabSin
 	extern TabCos
-	extern TabSig2
+	extern TabSig
 
 	area  moncode, code, readonly 
 	;export calcul_Reel 
