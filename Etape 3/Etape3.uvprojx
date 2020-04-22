@@ -338,7 +338,7 @@
               <MiscControls>--C99</MiscControls>
               <Define>STM32F103xB,USE_FULL_LL_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>.\GASSP72</IncludePath>
+              <IncludePath>.\GFSSP72</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -402,21 +402,6 @@
               <FileType>2</FileType>
               <FilePath>.\Src\trigo.asm</FilePath>
             </File>
-            <File>
-              <FileName>f17p30_f18p135.asm</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\Src\f17p30_f18p135.asm</FilePath>
-            </File>
-            <File>
-              <FileName>f1p-45.asm</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\Tests\f1p-45.asm</FilePath>
-            </File>
-            <File>
-              <FileName>f23p-26_f24p-116.asm</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\Tests\f23p-26_f24p-116.asm</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -433,9 +418,9 @@
           <GroupName>Driver</GroupName>
           <Files>
             <File>
-              <FileName>gassp72.lib</FileName>
+              <FileName>gfssp72.lib</FileName>
               <FileType>4</FileType>
-              <FilePath>.\GASSP72\gassp72.lib</FilePath>
+              <FilePath>.\GFSSP72\gfssp72.lib</FilePath>
             </File>
           </Files>
         </Group>
