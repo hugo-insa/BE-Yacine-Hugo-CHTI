@@ -8,7 +8,7 @@ ARM Macro Assembler    Page 1
     2 00000000         
     3 00000000                 extern           TabSin
     4 00000000                 extern           TabCos
-    5 00000000                 extern           TabSig2
+    5 00000000                 extern           TabSig
     6 00000000         
     7 00000000                 area             moncode, code, readonly
     8 00000000         ;export calcul_Reel 
@@ -213,14 +213,14 @@ Symbol: TabCos
    Uses
       At line 19 in file calcul_dft.s
 Comment: TabCos used once
-TabSig2 00000000
+TabSig 00000000
 
-Symbol: TabSig2
+Symbol: TabSig
    Definitions
       At line 5 in file calcul_dft.s
    Uses
       None
-Comment: TabSig2 unused
+Comment: TabSig unused
 TabSin 00000000
 
 Symbol: TabSin
