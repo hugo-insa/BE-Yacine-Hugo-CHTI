@@ -96,7 +96,7 @@ int main(void)
 	GPIO_Configure(GPIOB, 14, OUTPUT, OUTPUT_PPULL);
 
 	// activation ADC, sampling time 1us
-	Init_TimingADC_ActiveADC_ff( ADC1, 0x52 );
+	Init_TimingADC_ActiveADC_ff( ADC1, 0x43 );
 	Single_Channel_ADC( ADC1, 2 );
 	// Déclenchement ADC par timer2, periode (72MHz/320kHz)ticks
 	Init_Conversion_On_Trig_Timer_ff( ADC1, TIM2_CC2, 225 );
