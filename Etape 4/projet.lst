@@ -1,0 +1,216 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ; ce programme est pour l'assembleur RealView (Keil)
+    2 00000000                 thumb
+    3 00000000         
+    4 00000000                 include          etat.inc
+    1 00000000         ;typedef struct {
+    2 00000000         ;int position;  // 0
+    3 00000000         ;int taille;  // 4
+    4 00000000         ;void * son;  // 8
+    5 00000000         ;int resolution; // 12
+    6 00000000         ;int periode_ticks; // 16
+    7 00000000         ;} type_etat;
+    8 00000000         
+    9 00000000         ;/*
+   10 00000000 00000000 
+                       E_POS   equ              0
+   11 00000000 00000004 
+                       E_TAI   equ              4
+   12 00000000 00000008 
+                       E_SON   equ              8
+   13 00000000 0000000C 
+                       E_RES   equ              12
+   14 00000000 00000010 
+                       E_PER   equ              16
+   15 00000000                 end
+    5 00000000                 extern           StructSon
+    6 00000000         
+    7 00000000 4000043C 
+                       TIM3_CCR3
+                               equ              0x4000043C  ; adresse registre 
+                                                            PWM
+    8 00000000         
+    9 00000000                 area             mesdata, data , readwrite
+   10 00000000         
+   11 00000000                 area             moncode, code, readonly
+   12 00000000                 export           timer_callback
+   13 00000000         
+   14 00000000         timer_callback
+                               proc
+   15 00000000 480E            ldr              r0,=StructSon ; 
+   16 00000002 6801            ldr              r1, [r0, #E_POS] ; 
+   17 00000004 6842            ldr              r2, [r0, #E_TAI] ; 
+   18 00000006 4B0E            ldr              r3, =TIM3_CCR3 ;
+   19 00000008 F102 0201       add              r2,#1       ; 
+   20 0000000C 4291            cmp              r1, r2      ; 
+   21 0000000E D010            BEQ              Silence     ; 
+   22 00000010         
+   23 00000010         ; sinon 
+   24 00000010 E92D 01F0       push             {r4-r8}     ; 
+   25 00000014 6884            ldr              r4, [r0,#E_SON] ; 
+   26 00000016 F934 4011       ldrsh            r4, [r4,r1,LSL #1] ; 
+   27 0000001A         
+   28 0000001A F504 4400       add              r4, #0x8000 ;
+   29 0000001E 68C5            ldr              r5, [r0, #E_RES] ; 
+   30 00000020 FB04 F405       mul              r4,r5       ; 
+   31 00000024 EA4F 4414       lsr              r4, #0x10   ; 
+   32 00000028         
+   33 00000028 601C            str              r4,[r3]     ; 
+   34 0000002A F101 0101       add              r1,#1       ; 
+   35 0000002E 6001            str              r1,[r0,#E_POS] ; 
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   36 00000030 E002            b                Test
+   37 00000032         
+   38 00000032         Silence
+   39 00000032 F04F 0200       mov              r2, #0
+   40 00000036 601A            str              r2,[r3]
+   41 00000038         
+   42 00000038         Test
+   43 00000038 BD00            pop{pc}
+   44 0000003A                 endp
+   45 0000003A                 end
+              00 00 00000000 
+              4000043C 
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
+ork --depend=.\obj\projet.d -o.\obj\projet.o -I.\RTE\_Simu -IC:\Users\yacin\App
+Data\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include -IC:\Users\yacin\AppDat
+a\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include --predefine="__EVAL S
+ETA 1" --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 529"
+ --predefine="_RTE_ SETA 1" --predefine="STM32F10X_MD SETA 1" --list=projet.lst
+ projet.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+mesdata 00000000
+
+Symbol: mesdata
+   Definitions
+      At line 9 in file projet.s
+   Uses
+      None
+Comment: mesdata unused
+1 symbol
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Silence 00000032
+
+Symbol: Silence
+   Definitions
+      At line 38 in file projet.s
+   Uses
+      At line 21 in file projet.s
+Comment: Silence used once
+Test 00000038
+
+Symbol: Test
+   Definitions
+      At line 42 in file projet.s
+   Uses
+      At line 36 in file projet.s
+Comment: Test used once
+moncode 00000000
+
+Symbol: moncode
+   Definitions
+      At line 11 in file projet.s
+   Uses
+      None
+Comment: moncode unused
+timer_callback 00000000
+
+Symbol: timer_callback
+   Definitions
+      At line 14 in file projet.s
+   Uses
+      At line 12 in file projet.s
+Comment: timer_callback used once
+4 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+E_PER 00000010
+
+Symbol: E_PER
+   Definitions
+      At line 14 in file etat.inc
+   Uses
+      None
+Comment: E_PER unused
+E_POS 00000000
+
+Symbol: E_POS
+   Definitions
+      At line 10 in file etat.inc
+   Uses
+      At line 16 in file projet.s
+      At line 35 in file projet.s
+
+E_RES 0000000C
+
+Symbol: E_RES
+   Definitions
+      At line 13 in file etat.inc
+   Uses
+      At line 29 in file projet.s
+Comment: E_RES used once
+E_SON 00000008
+
+Symbol: E_SON
+   Definitions
+      At line 12 in file etat.inc
+   Uses
+      At line 25 in file projet.s
+Comment: E_SON used once
+E_TAI 00000004
+
+Symbol: E_TAI
+   Definitions
+      At line 11 in file etat.inc
+   Uses
+      At line 17 in file projet.s
+Comment: E_TAI used once
+TIM3_CCR3 4000043C
+
+Symbol: TIM3_CCR3
+   Definitions
+      At line 7 in file projet.s
+   Uses
+      At line 18 in file projet.s
+Comment: TIM3_CCR3 used once
+6 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+External symbols
+
+StructSon 00000000
+
+Symbol: StructSon
+   Definitions
+      At line 5 in file projet.s
+   Uses
+      At line 15 in file projet.s
+Comment: StructSon used once
+1 symbol
+349 symbols in table
