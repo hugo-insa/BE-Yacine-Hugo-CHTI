@@ -3,7 +3,7 @@
 ".\obj\projet.o"
 ".\obj\startup-rvds.o"
 ".\GASSP72\gassp72.lib"
-".\obj\laser.o"
+".\obj\arghh.o"
 --library_type=microlib --strict --scatter ".\Obj\CHTI.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
