@@ -1,0 +1,233 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 thumb
+    2 00000000         
+    3 00000000                 extern           TabSin
+    4 00000000                 extern           TabCos
+    5 00000000                 extern           TabSig
+    6 00000000         
+    7 00000000                 area             moncode, code, readonly
+    8 00000000         ;export calcul_Reel 
+    9 00000000         ;export calcul_Imaginaire 
+   10 00000000                 export           M2
+   11 00000000         
+   12 00000000         M2      proc
+   13 00000000         ; r0 contient k
+   14 00000000         ; r1 contient @ de signal
+   15 00000000         ; r2 contient la partie Imaginaire 
+   16 00000000         ; r3 contient la partie Réel 
+   17 00000000         
+   18 00000000 E92D 4783       push             {LR, r0, r1,r7-r10}
+   19 00000004 4A15            ldr              r2, =TabCos
+   20 00000006 F7FF FFFE       bl               dft_reel_imaginaire
+   21 0000000A 4603            mov              r3, r0      ; Re dans r1
+   22 0000000C BC03            pop              {r0,r1}
+   23 0000000E 4A14            ldr              r2, =TabSin
+   24 00000010 F7FF FFFE       bl               dft_reel_imaginaire
+   25 00000014 4602            mov              r2, r0      ; Im dans r2
+   26 00000016         
+   27 00000016         
+   28 00000016 FB83 7803       smull            r7, r8,r3,r3 ; Re²
+   29 0000001A FB82 9A02       smull            r9,r10,r2,r2 ; Im²
+   30 0000001E 44D0            add              r8,r10      ; Re²+Im²
+   31 00000020 4640            mov              r0,r8
+   32 00000022 E8BD 0780       pop              {r7-r10}
+   33 00000026 F85D EB04       pop              {LR}
+   34 0000002A         
+   35 0000002A         
+   36 0000002A 4770            BX               LR
+   37 0000002C                 endp
+   38 0000002C         
+   39 0000002C         
+   40 0000002C         ; Pour ces fonctions, on va utiliser les registres compr
+                       is entre R4 et R11 
+   41 0000002C         ; En effet, ces registres vont être utilisés comme stock
+                       age temporaire à condition de les push et pop avant le r
+                       etour 
+   42 0000002C 0000003F 
+                       masque  equ              0x3F        ; pour faire un mod
+                                                            ulo 64
+   43 0000002C         
+   44 0000002C         ; ****************** Explications***********************
+                       ********************************
+   45 0000002C         
+   46 0000002C         ;  r0 contient k
+   47 0000002C         ;   r1 contient @Signal 
+   48 0000002C         ;   r2 cotient TabCos ou TabSin
+   49 0000002C         ;   r3 contient x(i) échantillon signal
+   50 0000002C         ;   r4 contient cos(i*k) ou sin(i*k)
+   51 0000002C         ;   r5 contient i*k
+   52 0000002C         ;   r6 la somme des x(i)*cos(i*k) ou x(i)*sin(i*k)
+   53 0000002C         ;   r7 contient x(i)*cos(i*k) ou x(i) * sin(i*k)
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   54 0000002C         ;   r12 contient i
+   55 0000002C         
+   56 0000002C         
+   57 0000002C         dft_reel_imaginaire
+                               proc
+   58 0000002C B4F8            push             {r3-r7}
+   59 0000002E F04F 0C00       mov              r12, #0x00
+   60 00000032 E7FF            b                loop
+   61 00000034         
+   62 00000034         loop
+   63 00000034         
+   64 00000034         ; A partir de la sauvegarde des adresses dans r2, on va 
+                       pouvoir calculer la partie réelle  et imaginaire
+   65 00000034 FB0C F500       mul              r5,r12,r0   ;          i * k 
+   66 00000038 F005 053F       and              r5, #masque ;          i * k mo
+                                                            d 64 
+   67 0000003C         
+   68 0000003C F932 4015       ldrsh            r4, [r2, r5, lsl #0x01] ;      
+                                                            cos(i*k) | sin(i*k)
+                                                             
+   69 00000040         
+   70 00000040 F931 301C       ldrsh            r3, [r1,r12, lsl #0x01] 
+                                                            ;      x(i)
+   71 00000044         
+   72 00000044 FB03 F704       mul              r7,r3,r4    ;           x(i)*co
+                                                            s(i*k)| x(i)*sin(i*
+                                                            k)
+   73 00000048         
+   74 00000048         
+   75 00000048         
+   76 00000048 443E            add              r6,r7       ;           somme d
+                                                            es x(i)*cos(ik) | x
+                                                            (i)*sin(ik)
+   77 0000004A         
+   78 0000004A F10C 0C01       add              r12, #0x01  ;         i=0 
+   79 0000004E F1BC 0F40       cmp              r12,#64     ;                  
+                                                                              à
+                                                             i=64
+   80 00000052 D1EF            bne              loop
+   81 00000054         
+   82 00000054         ;             sinon on quitte la boucle  
+   83 00000054 4630            mov              r0,r6
+   84 00000056 E7FF            b                fin
+   85 00000058         
+   86 00000058         
+   87 00000058         
+   88 00000058         fin
+   89 00000058 BCF8            pop              {r3-r7}
+   90 0000005A 4770            bx               lr
+   91 0000005C                 endp
+   92 0000005C                 end
+              00000000 
+              00000000 
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
+ork --depend=.\obj\calcul_dft.d -o.\obj\calcul_dft.o -I.\RTE\_Simu -IC:\Users\y
+acin\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include -IC:\Users\yaci
+n\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include --predefine="
+__EVAL SETA 1" --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION S
+ETA 529" --predefine="_RTE_ SETA 1" --predefine="STM32F10X_MD SETA 1" --list=ca
+
+
+
+ARM Macro Assembler    Page 3 
+
+
+lcul_dft.lst calcul_dft.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+M2 00000000
+
+Symbol: M2
+   Definitions
+      At line 12 in file calcul_dft.s
+   Uses
+      At line 10 in file calcul_dft.s
+Comment: M2 used once
+dft_reel_imaginaire 0000002C
+
+Symbol: dft_reel_imaginaire
+   Definitions
+      At line 57 in file calcul_dft.s
+   Uses
+      At line 20 in file calcul_dft.s
+      At line 24 in file calcul_dft.s
+
+fin 00000058
+
+Symbol: fin
+   Definitions
+      At line 88 in file calcul_dft.s
+   Uses
+      At line 84 in file calcul_dft.s
+Comment: fin used once
+loop 00000034
+
+Symbol: loop
+   Definitions
+      At line 62 in file calcul_dft.s
+   Uses
+      At line 60 in file calcul_dft.s
+      At line 80 in file calcul_dft.s
+
+moncode 00000000
+
+Symbol: moncode
+   Definitions
+      At line 7 in file calcul_dft.s
+   Uses
+      None
+Comment: moncode unused
+5 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+masque 0000003F
+
+Symbol: masque
+   Definitions
+      At line 42 in file calcul_dft.s
+   Uses
+      At line 66 in file calcul_dft.s
+Comment: masque used once
+1 symbol
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+External symbols
+
+TabCos 00000000
+
+Symbol: TabCos
+   Definitions
+      At line 4 in file calcul_dft.s
+   Uses
+      At line 19 in file calcul_dft.s
+Comment: TabCos used once
+TabSig 00000000
+
+Symbol: TabSig
+   Definitions
+      At line 5 in file calcul_dft.s
+   Uses
+      None
+Comment: TabSig unused
+TabSin 00000000
+
+Symbol: TabSin
+   Definitions
+      At line 3 in file calcul_dft.s
+   Uses
+      At line 23 in file calcul_dft.s
+Comment: TabSin used once
+3 symbols
+346 symbols in table

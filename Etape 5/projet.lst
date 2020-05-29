@@ -1,0 +1,278 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;  ce programme est pour l'assembleur RealView (Keil)
+    2 00000000                 thumb
+    3 00000000         
+    4 00000000                 include          etat.inc
+    1 00000000         ;typedef struct {
+    2 00000000         ;int position;  // 0
+    3 00000000         ;int taille;  // 4
+    4 00000000         ;void * son;  // 8
+    5 00000000         ;int resolution; // 12
+    6 00000000         ;int periode_ticks; // 16
+    7 00000000         ;} type_etat;
+    8 00000000         
+    9 00000000         ;/*
+   10 00000000 00000000 
+                       E_POS   equ              0
+   11 00000000 00000004 
+                       E_TAI   equ              4
+   12 00000000 00000008 
+                       E_SON   equ              8
+   13 00000000 0000000C 
+                       E_RES   equ              12
+   14 00000000 00000010 
+                       E_PER   equ              16
+   15 00000000                 end
+    5 00000000         
+    6 00000000                 extern           StructSon
+    7 00000000                 extern           Position
+    8 00000000         
+    9 00000000 4000043C 
+                       TIM3_CCR3
+                               equ              0x4000043C  ; adresse registre 
+                                                            PWM
+   10 00000000         
+   11 00000000                 area             moncode, code, readonly
+   12 00000000                 export           timer_callback
+   13 00000000         ;
+   14 00000000         timer_callback
+                               proc
+   15 00000000 480F            ldr              r0,=StructSon ; on charge l'adr
+                                                            essse de la structu
+                                                            re son
+   16 00000002 4910            ldr              r1, =TIM3_CCR3 ; on met l'adres
+                                                            se du registre de P
+                                                            WM dans r3 
+   17 00000004 6802            ldr              r2,[r0]     ; on récupère la po
+                                                            sition actuelle 
+   18 00000006 6843            ldr              r3,[r0, #E_TAI] ; on récupère l
+                                                            a taille de notre é
+                                                            chantillon 
+   19 00000008 429A            cmp              r2,r3       ; on continue si po
+                                                            sition < taille
+   20 0000000A D211            bhs              silence     ; on quitte le prog
+                                                            ramme si on est à l
+                                                            a fin 
+   21 0000000C         
+   22 0000000C         ; sinon 
+   23 0000000C B430            push             {r4,r5}     ; on push les regis
+                                                            tres r4 et r5 
+   24 0000000E 6884            ldr              r4, [r0,#E_SON] ; on charge not
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+                                                            re échantillon dans
+                                                             le registre r4 
+   25 00000010 F934 C012       ldrsh            r12 ,[r4, r2, LSL #1] ; on accè
+                                                            de à l'échantillon 
+                                                            actuel 
+   26 00000014         
+   27 00000014         ; Avant d'être envoyé au modulateur d'impulsions, chaque
+                        échantillon devra :
+   28 00000014         ; - être additionné d'une composante continue telle que 
+                       sa valeur soit toujours positive (entre 0 et 2^16 - 1) :
+                        (1) 
+   29 00000014         ;  - être multiplié par un facteur d'échelle tel que sa 
+                       valeur soit inférieure à la pleine échelle du modulateur
+                        ou "résolution". (2)
+   30 00000014         ;  - Cette résolution est rendue par la fonction d'initi
+                       alisation du modulateur PWM (elle est inférieure à 2^16)
+                        (3) 
+   31 00000014         
+   32 00000014 F50C 4C00       add              r12, #0x8000 ; correspond au pr
+                                                            emier critère que n
+                                                            otre valeur soit to
+                                                            ujours positive ave
+                                                            c choix comme compo
+                                                            sante : 32768 ( qui
+                                                             est la moitié l'in
+                                                            tervalle [0,2^16 -1
+                                                            ]   
+   33 00000018 68C5            ldr              r5, [r0, #E_RES] ; on détermine
+                                                             la résolution et o
+                                                            n l'affecte au regi
+                                                            stre r5
+   34 0000001A FB0C FC05       mul              r12,r5      ; on effectue la mu
+                                                            ltiplication de la 
+                                                            résolution précedem
+                                                            ment déterminée ave
+                                                            c notre échantillon
+                                                             respectant le (1) 
+                                                            
+   35 0000001E EA4F 4C1C       lsr              r12,#16     ; division par 2^16
+                                                             
+   36 00000022         
+   37 00000022         ; transmission 
+   38 00000022 F102 0201       add              r2,#1       ; on ajoute pour me
+                                                            ttre à jour la posi
+                                                            tion 
+   39 00000026 6002            str              r2,[r0]     ; on stocke la nouv
+                                                            elle position dans 
+                                                            la structure son
+   40 00000028 F8C1 C000       str              r12,[r1]    ; on stocke l'échan
+                                                            tillon modifié dans
+                                                             le registre PWM 
+   41 0000002C BC30            pop              {r5,r4}     ;      ; on libère 
+                                                            la mémoire utilisée
+                                                             pour les registres
+                                                             r4 et r5 
+   42 0000002E E006            b                fin
+   43 00000030         
+   44 00000030 F8D0 C00C 
+                       silence ldr              r12, [r0, #E_RES] ; on charge l
+
+
+
+ARM Macro Assembler    Page 3 
+
+
+                                                            a structure 
+   45 00000034 EA4F 0C5C       lsr              r12, #1     ; division par 2^1 
+                                                            
+   46 00000038 F8C1 C000       str              r12,[r1]    ; on stocke r12 dan
+                                                            s le registre de PW
+                                                            M 
+   47 0000003C E7FF            B                fin
+   48 0000003E         
+   49 0000003E 4770    fin     bx               lr          ; dernière instruct
+                                                            ion de la fonction
+   50 00000040                 endp
+   51 00000040         ;
+   52 00000040                 end
+              00000000 
+              4000043C 
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
+ork --depend=.\obj\projet.d -o.\obj\projet.o -I.\RTE\_Simu -IC:\Users\yacin\App
+Data\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include -IC:\Users\yacin\AppDat
+a\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include --predefine="__EVAL S
+ETA 1" --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 529"
+ --predefine="_RTE_ SETA 1" --predefine="STM32F10X_MD SETA 1" --list=projet.lst
+ projet.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+fin 0000003E
+
+Symbol: fin
+   Definitions
+      At line 49 in file projet.s
+   Uses
+      At line 42 in file projet.s
+      At line 47 in file projet.s
+
+moncode 00000000
+
+Symbol: moncode
+   Definitions
+      At line 11 in file projet.s
+   Uses
+      None
+Comment: moncode unused
+silence 00000030
+
+Symbol: silence
+   Definitions
+      At line 44 in file projet.s
+   Uses
+      At line 20 in file projet.s
+Comment: silence used once
+timer_callback 00000000
+
+Symbol: timer_callback
+   Definitions
+      At line 14 in file projet.s
+   Uses
+      At line 12 in file projet.s
+Comment: timer_callback used once
+4 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+E_PER 00000010
+
+Symbol: E_PER
+   Definitions
+      At line 14 in file etat.inc
+   Uses
+      None
+Comment: E_PER unused
+E_POS 00000000
+
+Symbol: E_POS
+   Definitions
+      At line 10 in file etat.inc
+   Uses
+      None
+Comment: E_POS unused
+E_RES 0000000C
+
+Symbol: E_RES
+   Definitions
+      At line 13 in file etat.inc
+   Uses
+      At line 33 in file projet.s
+      At line 44 in file projet.s
+
+E_SON 00000008
+
+Symbol: E_SON
+   Definitions
+      At line 12 in file etat.inc
+   Uses
+      At line 24 in file projet.s
+Comment: E_SON used once
+E_TAI 00000004
+
+Symbol: E_TAI
+   Definitions
+      At line 11 in file etat.inc
+   Uses
+      At line 18 in file projet.s
+Comment: E_TAI used once
+TIM3_CCR3 4000043C
+
+Symbol: TIM3_CCR3
+   Definitions
+      At line 9 in file projet.s
+   Uses
+      At line 16 in file projet.s
+Comment: TIM3_CCR3 used once
+6 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+External symbols
+
+Position 00000000
+
+Symbol: Position
+   Definitions
+      At line 7 in file projet.s
+   Uses
+      None
+Comment: Position unused
+StructSon 00000000
+
+Symbol: StructSon
+   Definitions
+      At line 6 in file projet.s
+   Uses
+      At line 15 in file projet.s
+Comment: StructSon used once
+2 symbols
+349 symbols in table
