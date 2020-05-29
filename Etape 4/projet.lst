@@ -42,9 +42,9 @@ ARM Macro Assembler    Page 1
    13 00000000         ;
    14 00000000         timer_callback
                                proc
-   15 00000000 480F            ldr              r0,=StructSon ; on charge la va
-                                                            leur de la structur
-                                                            e son
+   15 00000000 480F            ldr              r0,=StructSon ; on charge l'adr
+                                                            essse de la structu
+                                                            re son
    16 00000002 4910            ldr              r1, =TIM3_CCR3 ; on met l'adres
                                                             se du registre de P
                                                             WM dans r3 

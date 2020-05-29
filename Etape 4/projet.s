@@ -12,7 +12,7 @@ TIM3_CCR3	equ	0x4000043C	; adresse registre PWM
 	export timer_callback
 ;
 timer_callback	proc
-	ldr r0,=StructSon			; on charge la valeur de la structure son
+	ldr r0,=StructSon			; on charge l'adressse de la structure son
 	ldr r1, =TIM3_CCR3			; on met l'adresse du registre de PWM dans r3 
 	ldr r2,[r0] 				; on récupère la position actuelle 
 	ldr r3,[r0, #E_TAI]			; on récupère la taille de notre échantillon 
