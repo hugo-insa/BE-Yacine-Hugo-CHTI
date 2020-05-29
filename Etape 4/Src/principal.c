@@ -16,11 +16,14 @@ int main(void)
 	StructSon.son=&Son;
 	StructSon.periode_ticks=72*PeriodeSonMicroSec;
 	
+	float Periode_PWM_en_Tck = 720000;
+	
+	
 	// activation de la PLL qui multiplie la fréquence du quartz par 9
 CLOCK_Configure();
 // config port PB1 pour être utilisé en sortie
 GPIO_Configure(GPIOB, 0, OUTPUT, ALT_PPULL);
-		StructSon.resolution = PWM_Init_ff( TIM3, 3, StructSon.periode_ticks/3 );
+		StructSon.resolution = PWM_Init_ff( TIM3, 3, Periode_PWM_en_Tck );
 // initialisation du timer 4
 // Periode_en_Tck doit fournir la durée entre interruptions,
 // exprimée en périodes Tck de l'horloge principale du STM32 (72 MHz)
